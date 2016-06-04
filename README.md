@@ -8,6 +8,8 @@
 `react-relay-redux` lets you listen and respond to Relay
 queries and mutations using Redux actions and reducers.
 
+Eventually I want to look into how you can possibly dispatch queries/mutations directly using Redux actions, but that is a WIP.
+
 ## Install
 
 ```
