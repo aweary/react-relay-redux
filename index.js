@@ -94,7 +94,7 @@ function parseRequestData(request) {
  * @param {Relay.Environment} environment
  * @param {Function}          dispatch    Store.dispatch
  */
-export function RelayNetworkDispatch(environment, dispatch) {
+export function RegisterRelayDispatcher(environment, dispatch) {
   if (typeof dispatch === 'object') {
     dispatch = dispatch.dispatch;
   }
