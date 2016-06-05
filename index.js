@@ -47,6 +47,7 @@ function parseRequestData(request) {
   const queryString = request.getQueryString();
   const variables = request.getVariables();
   let data = {
+    request,
     queryString,
     variables
   };
