@@ -1,22 +1,4 @@
-const MOCK_DISPATCH = (function() {
-  let warned = false;
-  return action => {
-    if (!warned) {
-      console.error(
-      'RelayNetworkDispatch(...): you did not pass a dispatch function ' +
-      'as the second argument. RelayNetworkDispatch will be unable ' +
-      'to dispatch actions to your Redux store.'
-      );
-      warned = true;
-    }
-    console.error(action);
-  };
-})();
-
-
 const SUCCESS_MODIFIER = '_SUCCESS';
-
-
 export const RELAY_QUERY = 'RELAY_QUERY';
 export const RELAY_MUTATION = 'RELAY_MUTATION';
 export const RELAY_MUTATION_SUCCESS = RELAY_MUTATION + SUCCESS_MODIFIER;
@@ -95,13 +77,13 @@ function parseRequestData(request) {
  * @param {Function}          dispatch    Store.dispatch
  */
 export function RegisterRelayDispatcher(environment, dispatch) {
-  if (typeof dispatch === 'object') {
-    dispatch = dispatch.dispatch;
+  if (typeof dispatch !== 'function') {
+    throw new Error(
+      'RelayNetworkDispatch(...): you did not pass a dispatch function ' +
+      'as the second argument. RelayNetworkDispatch will be unable ' +
+      'to dispatch actions to your Redux store.'
+    );
   }
-  if (!dispatch) {
-    dispatch = MOCK_DISPATCH;
-  }
-
   environment.addNetworkSubscriber(
     query => dispatch(
       createRequestAction(query, RELAY_QUERY, dispatch)
